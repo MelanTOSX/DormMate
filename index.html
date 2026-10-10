@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DormMate - BKK Student Survival</title>
+<title>DormMate - BKK Student Survival (Google Maps Embed Pro)</title>
 <!-- 1. Script ดักซ่อน Console Warnings & Errors ของ Tailwind / Vue -->
 <script>
     (function() {
@@ -43,10 +43,6 @@
 <!-- FontAwesome Icons CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<!-- Leaflet Map CSS & JS CDN -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <!-- Vue 3 Production Build CDN -->
 <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 
@@ -61,11 +57,11 @@
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
-    #leaflet-win-map { height: 320px; z-index: 10; border-radius: 1rem; }
 </style>
 </head>
 <body class="bg-[#0b1120] text-slate-100 min-h-screen flex flex-col antialiased">
 <div id="app" v-cloak class="flex-grow flex flex-col min-h-screen relative pb-16 md:pb-0 max-w-md md:max-w-4xl mx-auto w-full bg-[#0b1120] border-x border-slate-800/80 shadow-2xl">
+    
     <!-- Header Bar -->
     <header class="bg-[#0d1527] border-b border-slate-800/80 px-4 py-3 sticky top-0 z-40">
         <div class="flex items-center justify-between">
@@ -76,9 +72,9 @@
                 <div>
                     <h1 class="font-bold text-base text-white leading-tight flex items-center gap-2">
                         <span>DormMate</span>
-                        <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Survival</span>
+                        <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Google Maps Pro</span>
                     </h1>
-                    <p class="text-[11px] text-slate-400">คู่มือเด็กหอ ย้ายเข้ากรุงเทพฯ สบายใจ 100%</p>
+                    <p class="text-[11px] text-slate-400">คู่มือเด็กหอ รวมรถไฟฟ้าทุกสาย & GPS วินมอไซค์</p>
                 </div>
             </div>
 
@@ -93,10 +89,10 @@
                 <i class="fa-solid fa-house"></i> หน้าแรก
             </button>
             <button @click="activeTab = 'transit'" :class="activeTab === 'transit' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-300 bg-slate-800/60'" class="px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
-                <i class="fa-solid fa-train-subway"></i> รถไฟฟ้า & ค่าโดยสาร
+                <i class="fa-solid fa-train-subway"></i> รถไฟฟ้า & บัตร
             </button>
-            <button @click="activeTab = 'win'; $nextTick(() => initMap())" :class="activeTab === 'win' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-300 bg-slate-800/60'" class="px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
-                <i class="fa-solid fa-motorcycle"></i> วินมอไซค์
+            <button @click="activeTab = 'win'" :class="activeTab === 'win' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-300 bg-slate-800/60'" class="px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
+                <i class="fa-solid fa-motorcycle"></i> วินมอไซค์ & GPS
             </button>
             <button @click="activeTab = 'kitchen'" :class="activeTab === 'kitchen' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-300 bg-slate-800/60'" class="px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
                 <i class="fa-solid fa-utensils"></i> เมนูเด็กหอ
@@ -111,28 +107,28 @@
     <main class="p-4 space-y-6 flex-grow">
 
         <!-- TAB 0: HOME DASHBOARD -->
-        <div v-if="activeTab === 'home'" class="space-y-6">
+        <div v-show="activeTab === 'home'" class="space-y-6">
             <div class="bg-[#0f192e] border border-slate-800/80 rounded-3xl p-6 relative overflow-hidden shadow-xl">
                 <div class="inline-flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-3 py-1 rounded-full font-medium mb-4">
-                    <span>♥️</span> ยินดีต้อนรับสู่กรุงเทพมหานคร!
+                    <span>♥️</span> ครบเครื่องเรื่องเดินทางและชีวิตเด็กหอ
                 </div>
 
                 <h2 class="text-2xl font-extrabold text-white leading-snug tracking-tight mb-3">
-                    ย้ายมากรุงเทพฯ ไม่ต้องกลัวหลง <br>
-                    <span class="text-amber-400">เช็กค่าตั๋วตรงเป๊ะตามประกาศทางการ • วินมอไซค์ • ค่าไฟ • เมนูเด็กหอ</span>
+                    รวมรถไฟฟ้าทุกสาย & คำนวณราคาแยกตามประเภทบัตร <br>
+                    <span class="text-amber-400">บุคคลทั่วไป • นักเรียน/นักศึกษา • ผู้สูงอายุ ครบทุกสถานี</span>
                 </h2>
 
                 <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                    ระบบคำนวณค่าโดยสารอ้างอิงจากตารางราคาบีทีเอสอย่างเป็นทางการ (มีผล 1 พ.ย. 2568)
+                    ตรวจสอบค่าโดยสารตามสถานีต้นทางและปลายทาง พร้อมระบบค้นหาพิกัด GPS วินมอเตอร์ไซค์ใกล้คุณ
                 </p>
 
                 <div class="space-y-3">
                     <button @click="activeTab = 'transit'" class="w-full bg-[#10b981] hover:bg-[#059669] text-slate-950 font-bold px-4 py-3 rounded-2xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-calculator"></i> คำนวณค่ารถไฟฟ้า & ตารางราคา
+                        <i class="fa-solid fa-calculator"></i> คำนวณค่าโดยสารรถไฟฟ้าทุกสาย
                     </button>
                     
-                    <button @click="activeTab = 'win'; $nextTick(() => initMap())" class="w-full bg-[#f97316] hover:bg-[#ea580c] text-slate-950 font-bold px-4 py-3 rounded-2xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-motorcycle"></i> ปักหมุดวินมอไซค์
+                    <button @click="activeTab = 'win'" class="w-full bg-[#f97316] hover:bg-[#ea580c] text-slate-950 font-bold px-4 py-3 rounded-2xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-motorcycle"></i> ปักหมุดวินมอไซค์ใกล้หอพัก
                     </button>
                 </div>
             </div>
@@ -142,16 +138,16 @@
                     <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
                         <i class="fa-solid fa-train-subway"></i>
                     </div>
-                    <h3 class="font-bold text-xs text-slate-100">อัตราค่าโดยสาร BTS</h3>
-                    <p class="text-[10px] text-slate-400 leading-normal">อัปเดตราคาตามตารางทางการทุกสถานี</p>
+                    <h3 class="font-bold text-xs text-slate-100">รถไฟฟ้าทุกสาย & บัตร</h3>
+                    <p class="text-[10px] text-slate-400 leading-normal">เช็กราคาแยกตามประเภทผู้โดยสาร</p>
                 </div>
 
-                <div @click="activeTab = 'win'; $nextTick(() => initMap())" class="bg-[#131c31] p-4 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer space-y-2">
+                <div @click="activeTab = 'win'" class="bg-[#131c31] p-4 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer space-y-2">
                     <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center font-bold text-lg">
                         <i class="fa-solid fa-motorcycle"></i>
                     </div>
-                    <h3 class="font-bold text-xs text-slate-100">จุดวินมอไซค์</h3>
-                    <p class="text-[10px] text-slate-400 leading-normal">ปักหมุด GPS + ราคาเริ่มต้นใกล้มหาวิทยาลัย</p>
+                    <h3 class="font-bold text-xs text-slate-100">จุดวินมอไซค์ + GPS</h3>
+                    <p class="text-[10px] text-slate-400 leading-normal">คำนวณระยะทางจากพิกัดคุณ</p>
                 </div>
 
                 <div @click="activeTab = 'kitchen'" class="bg-[#131c31] p-4 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer space-y-2">
@@ -159,7 +155,7 @@
                         <i class="fa-solid fa-utensils"></i>
                     </div>
                     <h3 class="font-bold text-xs text-slate-100">เมนูเด็กหอ</h3>
-                    <p class="text-[10px] text-slate-400 leading-normal">ค้นหาวัตถุดิบและลิงก์สูตรเด็ดจาก Google</p>
+                    <p class="text-[10px] text-slate-400 leading-normal">ตู้เย็นอัจฉริยะ + ค้นหาจาก Google</p>
                 </div>
 
                 <div @click="activeTab = 'electric'" class="bg-[#131c31] p-4 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer space-y-2">
@@ -172,33 +168,29 @@
             </div>
         </div>
 
-        <!-- TAB 1: TRANSIT FARE & OFFICIAL RABBIT CARD INFO -->
-        <div v-if="activeTab === 'transit'" class="space-y-5">
+        <!-- TAB 1: ALL TRANSIT LINES & CARD FARE CALCULATOR -->
+        <div v-show="activeTab === 'transit'" class="space-y-5">
             
-            <!-- Official Rabbit Card Rules Table -->
+            <!-- Official Card Rules Info Table -->
             <div class="bg-[#0f192e] border border-slate-800 rounded-2xl p-4 space-y-3">
-                <div class="flex justify-between items-center flex-wrap gap-2">
-                    <h3 class="font-bold text-sm text-amber-400 flex items-center gap-2">
-                        <i class="fa-solid fa-id-card"></i>
-                        อัตราค่าโดยสารบีทีเอส (มีผล 1 พ.ย. 2568)
-                    </h3>
-                </div>
+                <h3 class="font-bold text-sm text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-id-card"></i>
+                    อัตราค่าโดยสารบัตรแรบบิท / บัตรโดยสาร (มีผล 1 พ.ย. 2568)
+                </h3>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-[11px] border-collapse">
                         <thead>
                             <tr class="bg-slate-800/80 text-amber-300 border-b border-slate-700">
-                                <th class="p-2.5">ประเภทบัตรแรบบิท</th>
-                                <th class="p-2.5">กลุ่มผู้โดยสาร / เงื่อนไข</th>
-                                <th class="p-2.5 text-center">ช่วงราคา (บาท)</th>
+                                <th class="p-2.5">ประเภทผู้โดยสาร / บัตร</th>
+                                <th class="p-2.5">เงื่อนไข / ช่วงราคา</th>
                                 <th class="p-2.5">หมายเหตุประกาศทางการ</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-800/60 text-slate-200">
                             <tr v-for="rabbit in officialRabbitRules" :key="rabbit.type" class="hover:bg-slate-800/40">
                                 <td class="p-2.5 font-bold whitespace-nowrap" :class="rabbit.colorClass">{{ rabbit.type }}</td>
-                                <td class="p-2.5">{{ rabbit.condition }}</td>
-                                <td class="p-2.5 text-center font-bold text-amber-400 whitespace-nowrap">{{ rabbit.fareRange }}</td>
+                                <td class="p-2.5">{{ rabbit.condition }} <br><b class="text-amber-400">{{ rabbit.fareRange }}</b></td>
                                 <td class="p-2.5 text-slate-400 text-[10px]">{{ rabbit.remark }}</td>
                             </tr>
                         </tbody>
@@ -206,15 +198,15 @@
                 </div>
             </div>
 
-            <!-- Calculator Section -->
+            <!-- Line Selector & Multi-Card Fare Calculator -->
             <div class="bg-[#0f192e] border border-slate-800 rounded-2xl p-4 space-y-4">
-                <h3 class="font-bold text-sm text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-calculator text-amber-400"></i>
-                    คำนวณค่าโดยสาร
+                <h3 class="font-bold text-sm text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator"></i>
+                    คำนวณค่าโดยสารแยกตามประเภทบัตร (ทุกสายใน กทม.)
                 </h3>
 
                 <div>
-                    <label class="block text-xs text-slate-400 mb-1">เลือกสายรถไฟฟ้า</label>
+                    <label class="block text-xs text-slate-400 mb-1">เลือกเส้นทางรถไฟฟ้า</label>
                     <select v-model="selectedLineKey" @change="onLineChange" class="w-full bg-[#131c31] border border-slate-700 rounded-xl p-2.5 text-xs text-slate-100 font-semibold focus:outline-none focus:border-amber-500">
                         <option v-for="(line, key) in transitLinesData" :key="key" :value="key">
                             {{ line.name }} ({{ line.stations.length }} สถานี)
@@ -227,7 +219,7 @@
                         <label class="block text-[11px] text-slate-400 mb-1">ต้นทาง</label>
                         <select v-model="selectedStartStation" class="w-full bg-[#131c31] border border-slate-700 rounded-xl p-2 text-xs text-slate-200 focus:outline-none">
                             <option v-for="st in currentLineStations" :key="st.code + st.name" :value="st.name">
-                                [{{ st.code }}] {{ st.name }} {{ st.nameEn ? '(' + st.nameEn + ')' : '' }}
+                                [{{ st.code }}] {{ st.name }}
                             </option>
                         </select>
                     </div>
@@ -235,26 +227,30 @@
                         <label class="block text-[11px] text-slate-400 mb-1">ปลายทาง</label>
                         <select v-model="selectedEndStation" class="w-full bg-[#131c31] border border-slate-700 rounded-xl p-2 text-xs text-slate-200 focus:outline-none">
                             <option v-for="st in currentLineStations" :key="st.code + st.name" :value="st.name">
-                                [{{ st.code }}] {{ st.name }} {{ st.nameEn ? '(' + st.nameEn + ')' : '' }}
+                                [{{ st.code }}] {{ st.name }}
                             </option>
                         </select>
                     </div>
                 </div>
 
+                <!-- Multi-Card Fare Breakdown Display -->
                 <div class="space-y-2 pt-2 border-t border-slate-800">
-                    <span class="text-xs font-bold text-amber-400 block">ราคาค่าโดยสารตามตารางทางการ:</span>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-amber-400">เปรียบเทียบค่าโดยสารตามประเภทผู้โดยสาร:</span>
+                        <span class="text-[10px] text-slate-400">ระยะห่าง: {{ stationDistanceDiff }} สถานี</span>
+                    </div>
                     <div class="grid grid-cols-3 gap-2 text-xs">
                         <div class="p-2.5 rounded-xl bg-[#131c31] border border-orange-500/40 text-center">
                             <div class="text-[10px] text-orange-400 font-bold">🟧 บุคคลทั่วไป</div>
-                            <div class="text-lg font-bold text-orange-300 mt-1">฿{{ calculateOfficialFare('adult') }}</div>
+                            <div class="text-lg font-bold text-orange-300 mt-1">฿{{ calculateCardFare('adult') }}</div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-[#131c31] border border-emerald-500/40 text-center">
-                            <div class="text-[10px] text-emerald-400 font-bold">🟩 นักเรียน-นักศึกษา</div>
-                            <div class="text-lg font-bold text-emerald-300 mt-1">฿{{ calculateOfficialFare('student') }}</div>
+                            <div class="text-[10px] text-emerald-400 font-bold">🟩 นักเรียน/นักศึกษา</div>
+                            <div class="text-lg font-bold text-emerald-300 mt-1">฿{{ calculateCardFare('student') }}</div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-[#131c31] border border-purple-500/40 text-center">
                             <div class="text-[10px] text-purple-400 font-bold">🟪 ผู้สูงอายุ</div>
-                            <div class="text-lg font-bold text-purple-300 mt-1">฿{{ calculateOfficialFare('senior') }}</div>
+                            <div class="text-lg font-bold text-purple-300 mt-1">฿{{ calculateCardFare('senior') }}</div>
                         </div>
                     </div>
                 </div>
@@ -263,12 +259,12 @@
             <!-- Station Search List Section -->
             <div class="bg-[#0f192e] border border-slate-800 rounded-2xl p-4 space-y-3">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <h4 class="font-bold text-xs text-slate-200">ค้นหารายชื่อสถานี (ไทย / English / หมายเหตุ)</h4>
-                    <input v-model="stationSearchFilter" type="text" placeholder="ค้นหาชื่อสถานี หรือ รหัส..." class="bg-[#131c31] border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                    <h4 class="font-bold text-xs text-slate-200">ค้นหารายชื่อสถานีทุกสายในระบบ</h4>
+                    <input v-model="stationSearchFilter" type="text" placeholder="พิมพ์ชื่อสถานี หรือรหัส เช่น สายหยุด, สุขุมวิท..." class="bg-[#131c31] border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
                 </div>
 
-                <div class="max-h-72 overflow-y-auto space-y-1 pr-1 text-xs">
-                    <div v-for="st in searchedStationsList" :key="st.code + st.name" class="p-2.5 bg-[#131c31] rounded-xl border border-slate-800 flex justify-between items-center gap-2">
+                <div class="max-h-80 overflow-y-auto space-y-1 pr-1 text-xs">
+                    <div v-for="st in searchedStationsList" :key="st.code + st.name + st.lineName" class="p-2.5 bg-[#131c31] rounded-xl border border-slate-800 flex justify-between items-center gap-2">
                         <div class="flex items-center space-x-2">
                             <span class="px-2 py-0.5 rounded font-bold text-[10px] text-white shrink-0" :style="{ backgroundColor: st.color }">{{ st.code }}</span>
                             <div>
@@ -285,26 +281,47 @@
             </div>
         </div>
 
-        <!-- TAB 2: WIN MOTORBIKE -->
-        <div v-if="activeTab === 'win'" class="space-y-4">
+        <!-- TAB 2: WIN MOTORBIKE + GOOGLE MAPS EMBED -->
+        <div v-show="activeTab === 'win'" class="space-y-4">
             <div class="bg-[#0f192e] border border-slate-800 rounded-2xl p-4 space-y-3">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center flex-wrap gap-2">
                     <h3 class="font-bold text-xs text-slate-100 flex items-center gap-1.5">
                         <i class="fa-solid fa-map-location-dot text-orange-400"></i>
-                        จุดวินมอเตอร์ไซค์ใกล้มหาวิทยาลัย
+                        จุดวินมอเตอร์ไซค์ & พิกัดแผนที่ Google Maps
                     </h3>
-                    <button @click="showToast('ระบบปักหมุด GPS พร้อมใช้งาน')" class="bg-orange-500 text-slate-950 font-bold px-2.5 py-1 rounded-lg text-[11px]">
-                        + ปักหมุดวิน
+                    <button @click="getUserLocation" class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-[11px] shadow hover:opacity-90 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-crosshairs"></i> ดึงพิกัด GPS ของฉัน
                     </button>
                 </div>
 
-                <div id="leaflet-win-map" class="w-full bg-slate-900 border border-slate-800"></div>
+                <!-- GPS Status Banner -->
+                <div v-if="userLat && userLng" class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-[11px] text-emerald-400 flex items-center justify-between">
+                    <span>✓ พิกัดของคุณ: {{ userLat.toFixed(4) }}, {{ userLng.toFixed(4) }}</span>
+                    <span class="font-bold">อัปเดตแผนที่แล้ว</span>
+                </div>
+
+                <!-- Google Maps Embed Iframe -->
+                <div class="w-full h-[320px] rounded-xl overflow-hidden border border-slate-800 shadow-inner">
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        style="border:0"
+                        :src="`https://maps.google.com/maps?q=${userLat || 13.8825},${userLng || 100.6050}&z=15&output=embed`"
+                        allowfullscreen>
+                    </iframe>
+                </div>
 
                 <div class="space-y-2">
-                    <div v-for="win in winList" :key="win.id" class="p-3 bg-[#131c31] border border-slate-800 rounded-xl space-y-1">
+                    <div v-for="win in winList" :key="win.id" class="p-3 bg-[#131c31] border border-slate-800 rounded-xl space-y-1.5">
                         <div class="flex justify-between items-start">
                             <h4 class="font-bold text-xs text-amber-400">{{ win.name }}</h4>
-                            <span class="bg-orange-500/20 text-orange-300 font-bold text-[10px] px-2 py-0.5 rounded">เริ่มต้น ฿{{ win.startPrice }}</span>
+                            <div class="flex items-center gap-1.5">
+                                <span v-if="win.distance !== null" class="bg-blue-500/20 text-blue-300 font-bold text-[10px] px-2 py-0.5 rounded border border-blue-500/30">
+                                    📍 ห่าง {{ win.distance }} กม.
+                                </span>
+                                <span class="bg-orange-500/20 text-orange-300 font-bold text-[10px] px-2 py-0.5 rounded">เริ่มต้น ฿{{ win.startPrice }}</span>
+                            </div>
                         </div>
                         <p class="text-[11px] text-slate-400">{{ win.landmark }}</p>
                     </div>
@@ -313,7 +330,7 @@
         </div>
 
         <!-- TAB 3: KITCHEN -->
-        <div v-if="activeTab === 'kitchen'" class="space-y-4">
+        <div v-show="activeTab === 'kitchen'" class="space-y-4">
             <div class="bg-[#0f192e] border border-slate-800 rounded-2xl p-4 space-y-4 text-xs">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-slate-100 text-sm flex items-center gap-2">
@@ -434,7 +451,7 @@
         </div>
 
         <!-- TAB 4: ELECTRICITY -->
-        <div v-if="activeTab === 'electric'" class="space-y-4">
+        <div v-show="activeTab === 'electric'" class="space-y-4">
             <div class="bg-[#0f192e] border border-slate-800 rounded-2xl p-4 space-y-4 text-xs">
                 <div class="flex justify-between items-center">
                     <h3 class="font-bold text-slate-100 text-sm">⚡ คำนวณค่าไฟหอพัก</h3>
@@ -471,13 +488,15 @@
 </div>
 
 <script>
-    const { createApp, ref, computed, nextTick } = Vue;
+    const { createApp, ref, computed } = Vue;
 
     createApp({
         setup() {
             const activeTab = ref('home');
             const toastMsg = ref('');
-            let mapInstance = null;
+
+            const userLat = ref(null);
+            const userLng = ref(null);
 
             const showToast = (msg) => {
                 toastMsg.value = msg;
@@ -489,21 +508,21 @@
                     type: '🟧 บุคคลทั่วไป (Adult)',
                     condition: 'ประชาชนทั่วไป อายุ 23 - 59 ปี',
                     fareRange: '17 - 65 บาท',
-                    remark: 'อ้างอิงตารางทางการ (มีผล 1 พ.ย. 2568)',
+                    remark: 'อ้างอิงตารางทางการ',
                     colorClass: 'text-orange-400'
                 },
                 {
                     type: '🟩 นักเรียน นักศึกษา (Student)',
                     condition: 'นักเรียน/นักศึกษา อายุไม่เกิน 23 ปี (แสดงบัตร)',
                     fareRange: '12 - 60 บาท',
-                    remark: 'อ้างอิงตารางทางการ (มีผล 1 พ.ย. 2568)',
+                    remark: 'อ้างอิงตารางทางการ',
                     colorClass: 'text-emerald-400'
                 },
                 {
                     type: '🟪 ผู้สูงอายุ (Senior)',
                     condition: 'สัญชาติไทย อายุ 60 ปีขึ้นไป (แสดงบัตรประชาชน)',
                     fareRange: '9 - 33 บาท',
-                    remark: 'อ้างอิงตารางทางการ (มีผล 1 พ.ย. 2568)',
+                    remark: 'อ้างอิงตารางทางการ',
                     colorClass: 'text-purple-400'
                 }
             ]);
@@ -515,76 +534,210 @@
 
             const transitLinesData = {
                 bts_sukhumvit: {
-                    name: '1. BTS สายสุขุมวิท',
+                    name: '1. BTS สายสุขุมวิท (คูคต - เคหะฯ)',
                     color: '#00a859',
                     stations: [
-                        { code: 'N24', name: 'คูคต', nameEn: 'Khu Khot', note: 'สถานีปลายทาง' },
-                        { code: 'N23', name: 'แยก คปอ.', nameEn: 'Yaek Kor Por Aor', note: '' },
-                        { code: 'N22', name: 'พิพิธภัณฑ์กองทัพอากาศ', nameEn: 'Royal Thai Air Force Museum', note: '' },
-                        { code: 'N21', name: 'โรงพยาบาลภูมิพลอดุลยเดช', nameEn: 'Bhumibol Adulyadej Hospital', note: '' },
-                        { code: 'N20', name: 'สะพานใหม่', nameEn: 'Saphan Mai', note: '' },
-                        { code: 'N19', name: 'สายหยุด', nameEn: 'Sai Yud', note: '' },
-                        { code: 'N18', name: 'พหลโยธิน 59', nameEn: 'Phahon Yothin 59', note: '' },
-                        { code: 'N17', name: 'วัดพระศรีมหาธาตุ', nameEn: 'Wat Phra Sri Mahathat', note: 'เชื่อมต่อสายสีชมพู (PK16)' },
-                        { code: 'N16', name: 'กรมทหารราบที่ 11', nameEn: '11th Infantry Regiment', note: '' },
-                        { code: 'N15', name: 'บางบัว', nameEn: 'Bang Bua', note: '' },
-                        { code: 'N14', name: 'กรมป่าไม้', nameEn: 'Royal Forest Department', note: '' },
-                        { code: 'N13', name: 'มหาวิทยาลัยเกษตรศาสตร์', nameEn: 'Kasetsart University', note: '' },
-                        { code: 'N12', name: 'เสนานิคม', nameEn: 'Sena Nikhom', note: '' },
-                        { code: 'N11', name: 'รัชโยธิน', nameEn: 'Ratchayothin', note: '' },
-                        { code: 'N10', name: 'พหลโยธิน 24', nameEn: 'Phahon Yothin 24', note: '' },
-                        { code: 'N9', name: 'ห้าแยกลาดพร้าว', nameEn: 'Ha Yeak Lat Phrao', note: 'เชื่อมต่อ MRT สายสีน้ำเงิน (BL14)' },
-                        { code: 'N8', name: 'หมอชิต', nameEn: 'Mo Chit', note: 'เชื่อมต่อ MRT (BL13)' },
-                        { code: 'N7', name: 'สะพานควาย', nameEn: 'Saphan Khwai', note: '' },
-                        { code: 'N5', name: 'อารีย์', nameEn: 'Ari', note: '' },
-                        { code: 'N4', name: 'สนามเป้า', nameEn: 'Sanam Pao', note: '' },
-                        { code: 'N3', name: 'อนุสาวรีย์ชัยสมรภูมิ', nameEn: 'Victory Monument', note: '' },
-                        { code: 'N2', name: 'พญาไท', nameEn: 'Phaya Thai', note: 'เชื่อมต่อ Airport Rail Link' },
-                        { code: 'N1', name: 'ราชเทวี', nameEn: 'Ratchathewi', note: '' },
-                        { code: 'CEN', name: 'สยาม', nameEn: 'Siam', note: 'สถานีเชื่อมต่อสายสีลม' },
-                        { code: 'E1', name: 'ชิดลม', nameEn: 'Chit Lom', note: '' },
-                        { code: 'E2', name: 'เพลินจิต', nameEn: 'Phloen Chit', note: '' },
-                        { code: 'E3', name: 'นานา', nameEn: 'Nana', note: '' },
-                        { code: 'E4', name: 'อโศก', nameEn: 'Asok', note: 'เชื่อมต่อ MRT (BL22)' },
-                        { code: 'E5', name: 'พร้อมพงษ์', nameEn: 'Phrom Phong', note: '' },
-                        { code: 'E6', name: 'ทองหล่อ', nameEn: 'Thong Lo', note: '' },
-                        { code: 'E7', name: 'เอกมัย', nameEn: 'Ekkamai', note: '' },
-                        { code: 'E8', name: 'พระโขนง', nameEn: 'Phra Khanong', note: '' },
-                        { code: 'E9', name: 'อ่อนนุช', nameEn: 'On Nut', note: '' },
-                        { code: 'E10', name: 'บางจาก', nameEn: 'Bang Chak', note: '' },
-                        { code: 'E11', name: 'ปุณณวิถี', nameEn: 'Punnawithi', note: '' },
-                        { code: 'E12', name: 'อุดมสุข', nameEn: 'Udom Suk', note: '' },
-                        { code: 'E13', name: 'บางนา', nameEn: 'Bang Na', note: '' },
-                        { code: 'E14', name: 'แบริ่ง', nameEn: 'Bearing', note: '' },
-                        { code: 'E15', name: 'สำโรง', nameEn: 'Samrong', note: 'เชื่อมต่อสายสีเหลือง (YL23)' },
-                        { code: 'E16', name: 'ปู่เจ้า', nameEn: 'Pu Chao', note: '' },
-                        { code: 'E17', name: 'ช้างเอราวัณ', nameEn: 'Chang Erawan', note: '' },
-                        { code: 'E18', name: 'โรงเรียนนายเรือ', nameEn: 'Royal Thai Naval Academy', note: '' },
-                        { code: 'E19', name: 'ปากน้ำ', nameEn: 'Pak Nam', note: '' },
-                        { code: 'E20', name: 'ศรีนครินทร์', nameEn: 'Srinagarindra', note: '' },
-                        { code: 'E21', name: 'แพรกษา', nameEn: 'Phraek Sa', note: '' },
-                        { code: 'E22', name: 'สายลวด', nameEn: 'Sai Luat', note: '' },
-                        { code: 'E23', name: 'เคหะฯ', nameEn: 'Kheha', note: 'สถานีปลายทาง' }
+                        { code: 'N24', name: 'คูคต', nameEn: 'Khu Khot' },
+                        { code: 'N23', name: 'แยก คปอ.', nameEn: 'Yaek Kor Por Aor' },
+                        { code: 'N22', name: 'พิพิธภัณฑ์กองทัพอากาศ', nameEn: 'Air Force Museum' },
+                        { code: 'N21', name: 'โรงพยาบาลภูมิพลอดุลยเดช', nameEn: 'Bhumibol Hospital' },
+                        { code: 'N20', name: 'สะพานใหม่', nameEn: 'Saphan Mai' },
+                        { code: 'N19', name: 'สายหยุด', nameEn: 'Sai Yud' },
+                        { code: 'N18', name: 'พหลโยธิน 59', nameEn: 'Phahon Yothin 59' },
+                        { code: 'N17', name: 'วัดพระศรีมหาธาตุ', nameEn: 'Wat Phra Sri Mahathat', note: 'เชื่อมต่อสายสีชมพู' },
+                        { code: 'N16', name: 'กรมทหารราบที่ 11', nameEn: '11th Infantry Regiment' },
+                        { code: 'N15', name: 'บางบัว', nameEn: 'Bang Bua' },
+                        { code: 'N14', name: 'กรมป่าไม้', nameEn: 'Royal Forest Department' },
+                        { code: 'N13', name: 'มหาวิทยาลัยเกษตรศาสตร์', nameEn: 'Kasetsart University' },
+                        { code: 'N12', name: 'เสนานิคม', nameEn: 'Sena Nikhom' },
+                        { code: 'N11', name: 'รัชโยธิน', nameEn: 'Ratchayothin' },
+                        { code: 'N10', name: 'พหลโยธิน 24', nameEn: 'Phahon Yothin 24' },
+                        { code: 'N9', name: 'ห้าแยกลาดพร้าว', nameEn: 'Ha Yeak Lat Phrao', note: 'เชื่อมต่อ MRT' },
+                        { code: 'N8', name: 'หมอชิต', nameEn: 'Mo Chit', note: 'เชื่อมต่อ MRT' },
+                        { code: 'N7', name: 'สะพานควาย', nameEn: 'Saphan Khwai' },
+                        { code: 'N5', name: 'อารีย์', nameEn: 'Ari' },
+                        { code: 'N4', name: 'สนามเป้า', nameEn: 'Sanam Pao' },
+                        { code: 'N3', name: 'อนุสาวรีย์ชัยสมรภูมิ', nameEn: 'Victory Monument' },
+                        { code: 'N2', name: 'พญาไท', nameEn: 'Phaya Thai', note: 'เชื่อมต่อ ARL' },
+                        { code: 'N1', name: 'ราชเทวี', nameEn: 'Ratchathewi' },
+                        { code: 'CEN', name: 'สยาม', nameEn: 'Siam', note: 'จุดเปลี่ยนสายสีลม' },
+                        { code: 'E1', name: 'ชิดลม', nameEn: 'Chit Lom' },
+                        { code: 'E2', name: 'เพลินจิต', nameEn: 'Phloen Chit' },
+                        { code: 'E3', name: 'นานา', nameEn: 'Nana' },
+                        { code: 'E4', name: 'อโศก', nameEn: 'Asok', note: 'เชื่อมต่อ MRT' },
+                        { code: 'E5', name: 'พร้อมพงษ์', nameEn: 'Phrom Phong' },
+                        { code: 'E6', name: 'ทองหล่อ', nameEn: 'Thong Lo' },
+                        { code: 'E7', name: 'เอกมัย', nameEn: 'Ekkamai' },
+                        { code: 'E8', name: 'พระโขนง', nameEn: 'Phra Khanong' },
+                        { code: 'E9', name: 'อ่อนนุช', nameEn: 'On Nut' },
+                        { code: 'E10', name: 'บางจาก', nameEn: 'Bang Chak' },
+                        { code: 'E11', name: 'ปุณณวิถี', nameEn: 'Punnawithi' },
+                        { code: 'E12', name: 'อุดมสุข', nameEn: 'Udom Suk' },
+                        { code: 'E13', name: 'บางนา', nameEn: 'Bang Na' },
+                        { code: 'E14', name: 'แบริ่ง', nameEn: 'Bearing' },
+                        { code: 'E15', name: 'สำโรง', nameEn: 'Samrong', note: 'เชื่อมต่อสายสีเหลือง' },
+                        { code: 'E16', name: 'ปู่เจ้า', nameEn: 'Pu Chao' },
+                        { code: 'E17', name: 'ช้างเอราวัณ', nameEn: 'Chang Erawan' },
+                        { code: 'E18', name: 'โรงเรียนนายเรือ', nameEn: 'Naval Academy' },
+                        { code: 'E19', name: 'ปากน้ำ', nameEn: 'Pak Nam' },
+                        { code: 'E20', name: 'ศรีนครินทร์', nameEn: 'Srinagarindra' },
+                        { code: 'E21', name: 'แพรกษา', nameEn: 'Phraek Sa' },
+                        { code: 'E22', name: 'สายลวด', nameEn: 'Sai Luat' },
+                        { code: 'E23', name: 'เคหะฯ', nameEn: 'Kheha' }
                     ]
                 },
                 bts_silom: {
-                    name: '2. BTS สายสีลม',
+                    name: '2. BTS สายสีลม (สนามกีฬา - บางหว้า)',
                     color: '#006432',
                     stations: [
-                        { code: 'W1', name: 'สนามกีฬาแห่งชาติ', nameEn: 'National Stadium', note: 'สถานีปลายทาง' },
-                        { code: 'CEN', name: 'สยาม', nameEn: 'Siam', note: 'เชื่อมต่อสายสุขุมวิท' },
-                        { code: 'S1', name: 'ราชดำริ', nameEn: 'Ratchadamri', note: '' },
-                        { code: 'S2', name: 'ศาลาแดง', nameEn: 'Sala Daeng', note: 'เชื่อมต่อ MRT (BL27)' },
+                        { code: 'W1', name: 'สนามกีฬาแห่งชาติ', nameEn: 'National Stadium' },
+                        { code: 'CEN', name: 'สยาม', nameEn: 'Siam', note: 'จุดเปลี่ยนสายสุขุมวิท' },
+                        { code: 'S1', name: 'ราชดำริ', nameEn: 'Ratchadamri' },
+                        { code: 'S2', name: 'ศาลาแดง', nameEn: 'Sala Daeng', note: 'เชื่อมต่อ MRT' },
                         { code: 'S3', name: 'ช่องนนทรี', nameEn: 'Chong Nonsi', note: 'เชื่อมต่อสายสีทอง' },
-                        { code: 'S4', name: 'เซนต์หลุยส์', nameEn: 'Saint Louis', note: '' },
-                        { code: 'S5', name: 'สุรศักดิ์', nameEn: 'Surasak', note: '' },
-                        { code: 'S6', name: 'สะพานตากสิน', nameEn: 'Saphan Taksin', note: '' },
+                        { code: 'S4', name: 'เซนต์หลุยส์', nameEn: 'Saint Louis' },
+                        { code: 'S5', name: 'สุรศักดิ์', nameEn: 'Surasak' },
+                        { code: 'S6', name: 'สะพานตากสิน', nameEn: 'Saphan Taksin' },
                         { code: 'S7', name: 'กรุงธนบุรี', nameEn: 'Krung Thon Buri', note: 'เชื่อมต่อสายสีทอง' },
-                        { code: 'S8', name: 'วงเวียนใหญ่', nameEn: 'Wongwian Yai', note: '' },
-                        { code: 'S9', name: 'โพธิ์นิมิตร', nameEn: 'Pho Nimit', note: '' },
-                        { code: 'S10', name: 'ตลาดพลู', nameEn: 'Talat Phlu', note: '' },
-                        { code: 'S11', name: 'วุฒากาศ', nameEn: 'Wutthakat', note: '' },
-                        { code: 'S12', name: 'บางหว้า', nameEn: 'Bang Wa', note: 'สถานีปลายทาง' }
+                        { code: 'S8', name: 'วงเวียนใหญ่', nameEn: 'Wongwian Yai' },
+                        { code: 'S9', name: 'โพธิ์นิมิตร', nameEn: 'Pho Nimit' },
+                        { code: 'S10', name: 'ตลาดพลู', nameEn: 'Talat Phlu' },
+                        { code: 'S11', name: 'วุฒากาศ', nameEn: 'Wutthakat' },
+                        { code: 'S12', name: 'บางหว้า', nameEn: 'Bang Wa' }
+                    ]
+                },
+                mrt_blue: {
+                    name: '3. MRT สายสีน้ำเงิน (ท่าพระ - หลักสอง - บางซื่อ)',
+                    color: '#1a365d',
+                    stations: [
+                        { code: 'BL01', name: 'ท่าพระ', nameEn: 'Tha Phra' },
+                        { code: 'BL02', name: 'จรัญสนิทวงศ์ 13', nameEn: 'Charan 13' },
+                        { code: 'BL03', name: 'ไฟฉาย', nameEn: 'Fai Chai' },
+                        { code: 'BL04', name: 'บางขุนนนท์', nameEn: 'Bang Khun Non' },
+                        { code: 'BL05', name: 'บางยี่ขัน', nameEn: 'Bang Yi Khan' },
+                        { code: 'BL06', name: 'สิรินธร', nameEn: 'Sirindhorn' },
+                        { code: 'BL07', name: 'บางพลัด', nameEn: 'Bang Phlat' },
+                        { code: 'BL08', name: 'บางโพ', nameEn: 'Bang Pho' },
+                        { code: 'BL09', name: 'เตาปูน', nameEn: 'Tao Poon', note: 'เชื่อมต่อสายสีม่วง' },
+                        { code: 'BL10', name: 'บางซื่อ', nameEn: 'Bang Sue' },
+                        { code: 'BL11', name: 'กำแพงเพชร', nameEn: 'Kamphaeng Phet' },
+                        { code: 'BL12', name: 'สวนจตุจักร', nameEn: 'Chatuchak Park' },
+                        { code: 'BL13', name: 'พหลโยธิน', nameEn: 'Phahon Yothin', note: 'เชื่อมต่อ BTS หมอชิต' },
+                        { code: 'BL14', name: 'ลาดพร้าว', nameEn: 'Lat Phrao', note: 'เชื่อมต่อสายสีเหลือง' },
+                        { code: 'BL15', name: 'รัชดาภิเษก', nameEn: 'Ratchadaphisek' },
+                        { code: 'BL16', name: 'สุทธิสาร', nameEn: 'Sutthisan' },
+                        { code: 'BL17', name: 'ห้วยขวาง', nameEn: 'Huai Khwang' },
+                        { code: 'BL18', name: 'ศูนย์วัฒนธรรมแห่งประเทศไทย', nameEn: 'Thailand Cultural Centre' },
+                        { code: 'BL19', name: 'พระราม 9', nameEn: 'Phra Ram 9' },
+                        { code: 'BL20', name: 'เพชรบุรี', nameEn: 'Phetchaburi', note: 'เชื่อมต่อ ARL มักกะสัน' },
+                        { code: 'BL21', name: 'สุขุมวิท', nameEn: 'Sukhumvit', note: 'เชื่อมต่อ BTS อโศก' },
+                        { code: 'BL22', name: 'ศูนย์การประชุมแห่งชาติสิริกิติ์', nameEn: 'Queen Sirikit Convention Centre' },
+                        { code: 'BL23', name: 'คลองเตย', nameEn: 'Khlong Toei' },
+                        { code: 'BL24', name: 'ลุมพินี', nameEn: 'Lumphini' },
+                        { code: 'BL25', name: 'สีลม', nameEn: 'Silom', note: 'เชื่อมต่อ BTS ศาลาแดง' },
+                        { code: 'BL26', name: 'สามย่าน', nameEn: 'Sam Yan' },
+                        { code: 'BL27', name: 'หัวลำโพง', nameEn: 'Hua Lamphong' },
+                        { code: 'BL28', name: 'วัดมังกร', nameEn: 'Wat Mangkon' },
+                        { code: 'BL29', name: 'สามยอด', nameEn: 'Sam Yot' },
+                        { code: 'BL30', name: 'สนามไชย', nameEn: 'Sanam Chai' },
+                        { code: 'BL31', name: 'อิสรภาพ', nameEn: 'Itsaraphap' },
+                        { code: 'BL32', name: 'ภาษีเจริญ', nameEn: 'Phasi Charoen' },
+                        { code: 'BL33', name: 'บางแค', nameEn: 'Bang Khae' },
+                        { code: 'BL34', name: 'หลักสอง', nameEn: 'Lak Song' }
+                    ]
+                },
+                mrt_purple: {
+                    name: '4. MRT สายสีม่วง (คลองบางไผ่ - เตาปูน)',
+                    color: '#805ad5',
+                    stations: [
+                        { code: 'PP01', name: 'คลองบางไผ่', nameEn: 'Khlong Bang Phai' },
+                        { code: 'PP02', name: 'ตลาดบางใหญ่', nameEn: 'Talad Bang Yai' },
+                        { code: 'PP03', name: 'สามแยกบางใหญ่', nameEn: 'Sam Yaek Bang Yai' },
+                        { code: 'PP04', name: 'บางพลู', nameEn: 'Bang Phlu' },
+                        { code: 'PP05', name: 'บางรักใหญ่', nameEn: 'Bang Rak Yai' },
+                        { code: 'PP06', name: 'บางรักน้อยท่าอิฐ', nameEn: 'Bang Rak Noi Tha It' },
+                        { code: 'PP07', name: 'ไทรม้า', nameEn: 'Sai Ma' },
+                        { code: 'PP08', name: 'สะพานพระนั่งเกล้า', nameEn: 'Phra Nang Klao Bridge' },
+                        { code: 'PP09', name: 'แยกนนทบุรี 1', nameEn: 'Nonthaburi Civic Center 1' },
+                        { code: 'PP10', name: 'กระทรวงสาธารณสุข', nameEn: 'Ministry of Public Health' },
+                        { code: 'PP11', name: 'ติวานนท์', nameEn: 'Tiwanon' },
+                        { code: 'PP12', name: 'วงศ์สว่าง', nameEn: 'Wongsawang' },
+                        { code: 'PP13', name: 'บางซ่อน', nameEn: 'Bang Son' },
+                        { code: 'PP14', name: 'เตาปูน', nameEn: 'Tao Poon', note: 'เชื่อมต่อสายสีน้ำเงิน' }
+                    ]
+                },
+                arl: {
+                    name: '5. Airport Rail Link (พญาไท - สุวรรณภูมิ)',
+                    color: '#c53030',
+                    stations: [
+                        { code: 'A1', name: 'พญาไท', nameEn: 'Phaya Thai', note: 'เชื่อมต่อ BTS' },
+                        { code: 'A2', name: 'ราชปรารภ', nameEn: 'Ratchaprarop' },
+                        { code: 'A3', name: 'มักกะสัน', nameEn: 'Makkasan', note: 'เชื่อมต่อ MRT เพชรบุรี' },
+                        { code: 'A4', name: 'รามคำแหง', nameEn: 'Ramkhamhaeng' },
+                        { code: 'A5', name: 'หัวหมาก', nameEn: 'Hua Mak' },
+                        { code: 'A6', name: 'บ้านทับช้าง', nameEn: 'Ban Thap Chang' },
+                        { code: 'A7', name: 'ลาดกระบัง', nameEn: 'Lat Krabang' },
+                        { code: 'A8', name: 'สุวรรณภูมิ', nameEn: 'Suvarnabhumi Airport' }
+                    ]
+                },
+                srt_red_dark: {
+                    name: '6. รถไฟฟ้าสายสีแดงเข้ม (กรุงเทพอภิวัฒน์ - รังสิต)',
+                    color: '#e53e3e',
+                    stations: [
+                        { code: 'RN01', name: 'สถานีกลางกรุงเทพอภิวัฒน์', nameEn: 'Krung Thep Aphiwat' },
+                        { code: 'RN02', name: 'จตุจักร', nameEn: 'Chatuchak' },
+                        { code: 'RN03', name: 'วัดเสมียนนารี', nameEn: 'Wat Samian Nari' },
+                        { code: 'RN04', name: 'บางเขน', nameEn: 'Bang Khen' },
+                        { code: 'RN05', name: 'ทุ่งสองห้อง', nameEn: 'Thung Song Hong' },
+                        { code: 'RN06', name: 'หลักสี่', nameEn: 'Lak Si' },
+                        { code: 'RN07', name: 'การเคหะ', nameEn: 'Kan Keha' },
+                        { code: 'RN08', name: 'หลักหก', nameEn: 'Lak Hok' },
+                        { code: 'RN09', name: 'รังสิต', nameEn: 'Rangsit' }
+                    ]
+                },
+                srt_red_light: {
+                    name: '7. รถไฟฟ้าสายสีแดงอ่อน (กรุงเทพอภิวัฒน์ - ตลิ่งชัน)',
+                    color: '#dd6b20',
+                    stations: [
+                        { code: 'RW01', name: 'สถานีกลางกรุงเทพอภิวัฒน์', nameEn: 'Krung Thep Aphiwat' },
+                        { code: 'RW02', name: 'บางซ่อน', nameEn: 'Bang Son' },
+                        { code: 'RW03', name: 'บางพลัด', nameEn: 'Bang Phlat' },
+                        { code: 'RW04', name: 'บางบำหรุ', nameEn: 'Bang Bamru' },
+                        { code: 'RW05', name: 'ตลิ่งชัน', nameEn: 'Taling Chan' }
+                    ]
+                },
+                mrt_pink: {
+                    name: '8. MRT สายสีชมพู (ศูนย์ราชการนนทบุรี - มีนบุรี)',
+                    color: '#d53f8c',
+                    stations: [
+                        { code: 'PK01', name: 'ศูนย์ราชการนนทบุรี', nameEn: 'Nonthaburi Civic Center' },
+                        { code: 'PK02', name: 'แคราย', nameEn: 'Khae Rai' },
+                        { code: 'PK03', name: 'สนามบินน้ำ', nameEn: 'Sanam Bin Nam' },
+                        { code: 'PK04', name: 'สามัคคี', nameEn: 'Samakkhi' },
+                        { code: 'PK05', name: 'กรมชลประทาน', nameEn: 'Royal Irrigation Department' },
+                        { code: 'PK06', name: 'ปากเกร็ด', nameEn: 'Pak Kret' },
+                        { code: 'PK16', name: 'วัดพระศรีมหาธาตุ', nameEn: 'Wat Phra Sri Mahathat', note: 'เชื่อมต่อ BTS' },
+                        { code: 'PK30', name: 'มีนบุรี', nameEn: 'Min Buri' }
+                    ]
+                },
+                mrt_yellow: {
+                    name: '9. MRT สายสีเหลือง (ลาดพร้าว - สำโรง)',
+                    color: '#d69e2e',
+                    stations: [
+                        { code: 'YL01', name: 'ลาดพร้าว', nameEn: 'Lat Phrao', note: 'เชื่อมต่อ MRT สายสีน้ำเงิน' },
+                        { code: 'YL02', name: 'ภาวนา', nameEn: 'Phawana' },
+                        { code: 'YL03', name: 'โชคชัย 4', nameEn: 'Chok Chai 4' },
+                        { code: 'YL04', name: 'ลาดพร้าว 71', nameEn: 'Lat Phrao 71' },
+                        { code: 'YL23', name: 'สำโรง', nameEn: 'Samrong', note: 'เชื่อมต่อ BTS' }
+                    ]
+                },
+                bts_gold: {
+                    name: '10. BTS สายสีทอง (กรุงธนบุรี - คลองสาน)',
+                    color: '#b7791f',
+                    stations: [
+                        { code: 'GN1', name: 'กรุงธนบุรี', nameEn: 'Krung Thon Buri', note: 'เชื่อมต่อ BTS สายสีลม' },
+                        { code: 'GN2', name: 'เจริญนคร', nameEn: 'Charoen Nakhon', note: 'ไอคอนสยาม' },
+                        { code: 'GN3', name: 'คลองสาน', nameEn: 'Khlong San' }
                     ]
                 }
             };
@@ -601,46 +754,38 @@
                 }
             };
 
-            // Complete Official Fare Matrix mapping exact distance indexes from official PDFs (Effective Nov 1, 2025)
-            // References: Senior Card[cite: 7], Adult Card[cite: 8], Student Card[cite: 9]
-            const calculateOfficialFare = (type) => {
+            const stationDistanceDiff = computed(() => {
+                const stations = currentLineStations.value;
+                const startIdx = stations.findIndex(s => s.name === selectedStartStation.value);
+                const endIdx = stations.findIndex(s => s.name === selectedEndStation.value);
+                if (startIdx === -1 || endIdx === -1) return 0;
+                return Math.abs(startIdx - endIdx);
+            });
+
+            const calculateCardFare = (type) => {
                 const start = selectedStartStation.value;
                 const end = selectedEndStation.value;
                 if (start === end) return '0';
 
-                // Exact direct pairing overrides matching official PDF matrices (e.g. Sai Yud to Mo Chit = 11 stations)
-                if ((start === 'สายหยุด' && end === 'หมอชิต') || (start === 'หมอชิต' && end === 'สายหยุด')) {
-                    if (type === 'adult') return '47';   //[cite: 8]
-                    if (type === 'student') return '30'; //[cite: 9]
-                    if (type === 'senior') return '20';  //[cite: 7]
+                const diff = stationDistanceDiff.value;
+
+                if (selectedLineKey.value === 'bts_sukhumvit' || selectedLineKey.value === 'bts_silom') {
+                    const adultTable = [17, 17, 19, 22, 24, 27, 29, 32, 34, 37, 39, 42, 44, 45, 45, 62, 65];
+                    const studentTable = [12, 12, 14, 16, 17, 19, 21, 23, 26, 28, 30, 30, 40, 47, 52, 56, 60];
+                    const seniorTable = [9, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 28, 30, 33];
+
+                    const getTableVal = (tbl) => tbl[Math.min(diff, tbl.length - 1)];
+                    if (type === 'adult') return getTableVal(adultTable).toString();
+                    if (type === 'student') return getTableVal(studentTable).toString();
+                    if (type === 'senior') return getTableVal(seniorTable).toString();
                 }
-                if ((start === 'สายหยุด' && end === 'บางบัว') || (start === 'บางบัว' && end === 'สายหยุด')) {
-                    if (type === 'adult') return '24';   //[cite: 8]
-                    if (type === 'student') return '17'; //[cite: 9]
-                    if (type === 'senior') return '12';  //[cite: 7]
-                }
 
-                const stations = currentLineStations.value;
-                const startIdx = stations.findIndex(s => s.name === start);
-                const endIdx = stations.findIndex(s => s.name === end);
-                
-                if (startIdx === -1 || endIdx === -1) return type === 'senior' ? '9' : type === 'student' ? '12' : '17';
-                const diff = Math.abs(startIdx - endIdx);
+                const baseAdult = Math.min(15 + (diff * 4), 65);
+                if (type === 'adult') return baseAdult.toString();
+                if (type === 'student') return Math.max(12, Math.round(baseAdult * 0.85)).toString();
+                if (type === 'senior') return Math.max(10, Math.round(baseAdult * 0.5)).toString();
 
-                // Official Distance-based Fare Tables from official documents[cite: 7, 8, 9]
-                const adultTable = [17, 17, 19, 22, 24, 27, 29, 32, 34, 37, 39, 42, 44, 45, 45, 62, 65]; //[cite: 8]
-                const studentTable = [12, 12, 14, 16, 17, 19, 21, 23, 26, 28, 30, 30, 40, 47, 52, 56, 60]; //[cite: 9]
-                const seniorTable = [9, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 28, 30, 33]; //[cite: 7]
-
-                const getFareFromTable = (table) => {
-                    const idx = Math.min(diff, table.length - 1);
-                    return table[idx];
-                };
-
-                if (type === 'adult') return getFareFromTable(adultTable).toString();
-                if (type === 'student') return getFareFromTable(studentTable).toString();
-                if (type === 'senior') return getFareFromTable(seniorTable).toString();
-                return '17';
+                return '15';
             };
 
             const searchedStationsList = computed(() => {
@@ -660,33 +805,45 @@
                 );
             });
 
-            const winList = ref([
-                { id: 1, name: 'วินสถานีสายหยุด', landmark: 'ปากซอยพหลโยธิน 69 ใกล้หอพัก', startPrice: 15 },
-                { id: 2, name: 'วินมหาวิทยาลัยเกษตรศาสตร์ (ประตูงามวงศ์วาน)', landmark: 'จุดจอดหน้าคณะวิศวกรรมศาสตร์', startPrice: 20 },
-                { id: 3, name: 'วิน MRT พหลโยธิน', landmark: 'ทางออก 3 เซ็นทรัลลาดพร้าว', startPrice: 25 }
-            ]);
+            const calculateHaversineDistance = (lat1, lon1, lat2, lon2) => {
+                const R = 6371;
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLon = (lon2 - lon1) * Math.PI / 180;
+                const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                          Math.sin(dLon/2) * Math.sin(dLon/2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                return (R * c).toFixed(2);
+            };
 
-            const initMap = () => {
-                if (mapInstance) {
-                    mapInstance.invalidateSize();
-                    return;
-                }
-                setTimeout(() => {
-                    const mapElem = document.getElementById('leaflet-win-map');
-                    if (mapElem) {
-                        mapInstance = L.map('leaflet-win-map').setView([13.8825, 100.6050], 14);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            maxZoom: 19,
-                            attribution: '© OpenStreetMap'
-                        }).addTo(mapInstance);
-
-                        winList.value.forEach((win, idx) => {
-                            const coords = idx === 0 ? [13.8825, 100.6050] : idx === 1 ? [13.8475, 100.5695] : [13.8235, 100.5630];
-                            L.marker(coords).addTo(mapInstance)
-                                .bindPopup(`<b>${win.name}</b><br>${win.landmark}<br>เริ่มต้น ฿${win.startPrice}`);
-                        });
+            const winList = computed(() => {
+                const wins = [
+                    { id: 1, name: 'วินสถานีสายหยุด', landmark: 'ปากซอยพหลโยธิน 69 ใกล้หอพัก', startPrice: 15, lat: 13.8825, lng: 100.6050 },
+                    { id: 2, name: 'วินมหาวิทยาลัยเกษตรศาสตร์ (ประตูงามวงศ์วาน)', landmark: 'จุดจอดหน้าคณะวิศวกรรมศาสตร์', startPrice: 20, lat: 13.8475, lng: 100.5695 },
+                    { id: 3, name: 'วิน MRT พหลโยธิน', landmark: 'ทางออก 3 เซ็นทรัลลาดพร้าว', startPrice: 25, lat: 13.8235, lng: 100.5630 }
+                ];
+                return wins.map(w => {
+                    let distance = null;
+                    if (userLat.value !== null && userLng.value !== null) {
+                        distance = calculateHaversineDistance(userLat.value, userLng.value, w.lat, w.lng);
                     }
-                }, 200);
+                    return { ...w, distance };
+                });
+            });
+
+            const getUserLocation = () => {
+                if (navigator.geolocation) {
+                    showToast('กำลังค้นหาพิกัด GPS ของคุณ...');
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        userLat.value = position.coords.latitude;
+                        userLng.value = position.coords.longitude;
+                        showToast('ดึงพิกัด GPS และอัปเดตแผนที่สำเร็จ!');
+                    }, (error) => {
+                        showToast('ไม่สามารถเข้าถึงพิกัด GPS ได้ กรุณาเปิดสิทธิ์ตำแหน่ง');
+                    }, { timeout: 10000 });
+                } else {
+                    showToast('เบราว์เซอร์ของคุณไม่รองรับระบบ GPS');
+                }
             };
 
             const ingredientCategories = ref([
@@ -806,10 +963,13 @@
                 transitLinesData,
                 currentLineStations,
                 onLineChange,
-                calculateOfficialFare,
+                stationDistanceDiff,
+                calculateCardFare,
                 searchedStationsList,
                 winList,
-                initMap,
+                userLat,
+                userLng,
+                getUserLocation,
                 ingredientCategories,
                 searchQuery,
                 selectedIngredients,
